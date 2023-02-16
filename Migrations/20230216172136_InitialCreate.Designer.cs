@@ -10,8 +10,8 @@ using SongsAPI.Data;
 namespace SongsAPI.Migrations
 {
     [DbContext(typeof(SongContext))]
-    [Migration("20230216152304_SongArtist")]
-    partial class SongArtist
+    [Migration("20230216172136_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,10 +19,31 @@ namespace SongsAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
 
+            modelBuilder.Entity("SongsAPI.Models.Album", b =>
+                {
+                    b.Property<int>("AlbumId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AlbumName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AlbumRate")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AlbumId");
+
+                    b.ToTable("Albums");
+                });
+
             modelBuilder.Entity("SongsAPI.Models.Song", b =>
                 {
                     b.Property<int>("SongId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AlbumId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Category")
@@ -42,7 +63,25 @@ namespace SongsAPI.Migrations
 
                     b.HasKey("SongId");
 
+                    b.HasIndex("AlbumId");
+
                     b.ToTable("Songs");
+                });
+
+            modelBuilder.Entity("SongsAPI.Models.Song", b =>
+                {
+                    b.HasOne("SongsAPI.Models.Album", "Album")
+                        .WithMany("Song")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+                });
+
+            modelBuilder.Entity("SongsAPI.Models.Album", b =>
+                {
+                    b.Navigation("Song");
                 });
 #pragma warning restore 612, 618
         }

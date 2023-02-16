@@ -12,8 +12,10 @@ namespace SongsAPI.Data
         {
 
         }
-        //db set. tabellen namnges Songs
+        //db set. tabellen namnges Songs och Albums
         public DbSet<Song> Songs { get; set; }
+
+        public DbSet<Album> Albums { get; set; }
 
     }
 }
