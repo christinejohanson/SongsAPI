@@ -32,10 +32,18 @@ Uppbyggnad API:
 | Metod | Ändpunkt | Beskrivning |
 | --- | --- | --- |
 | GET | /api/song | hämtar alla låtar |
-| GET | /api/song/1 | hämtar song med angivet ID |
+| GET | /api/song/1 | hämtar låt med angivet ID |
 | POST | /api/song | lagrar ny låt |
 | PUT | /api/song/1 | uppdaterar låt med angivet ID |
 | DELETE | /api/song/1 | raderar låt med angivet ID |
+
+| Metod | Ändpunkt | Beskrivning |
+| --- | --- | --- |
+| GET | /api/album | hämtar alla album |
+| GET | /api/album/1 | hämtar album med angivet ID |
+| POST | /api/album | lagrar nytt album |
+| PUT | /api/album/1 | uppdaterar album med angivet ID |
+| DELETE | /api/album/1 | raderar album med angivet ID |
 
 ### Länk till publicerad demonstration av projektet:
 [Demonstration]()
