@@ -45,5 +45,16 @@ Uppbyggnad API:
 | PUT | /api/album/1 | uppdaterar album med angivet ID |
 | DELETE | /api/album/1 | raderar album med angivet ID |
 
+POST-anrop till API med JSON görs på följande sätt:
+
+  {
+    "songId": 9,
+    "songArtist": "Tom Hardy",
+    "songName": "Take me home",
+    "songLength": 200,
+    "category": "Indie pop",
+    "albumId": 4
+    }
+
 ### Länk till publicerad demonstration av projektet:
-[Demonstration]()
+[Demonstration](https://youtu.be/ObkJKTVVh4Q)
