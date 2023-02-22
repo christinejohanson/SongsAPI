@@ -10,8 +10,8 @@ using SongsAPI.Data;
 namespace SongsAPI.Migrations
 {
     [DbContext(typeof(SongContext))]
-    [Migration("20230216172136_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230222105943_Updatetables")]
+    partial class Updatetables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,18 +70,13 @@ namespace SongsAPI.Migrations
 
             modelBuilder.Entity("SongsAPI.Models.Song", b =>
                 {
-                    b.HasOne("SongsAPI.Models.Album", "Album")
-                        .WithMany("Song")
+                    b.HasOne("SongsAPI.Models.Album", "Albums")
+                        .WithMany()
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Album");
-                });
-
-            modelBuilder.Entity("SongsAPI.Models.Album", b =>
-                {
-                    b.Navigation("Song");
+                    b.Navigation("Albums");
                 });
 #pragma warning restore 612, 618
         }

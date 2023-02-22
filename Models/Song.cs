@@ -16,7 +16,7 @@ namespace SongsAPI.Models
         [Required]
         public string? Category { get; set; }
         public int AlbumId { get; set; }
-        public Album? Album { get; set; }
+        public Album? Albums { get; set; }
     }
 
     public class Album
@@ -27,8 +27,8 @@ namespace SongsAPI.Models
         public string? AlbumName { get; set; }
         [Range(1, 10)]
         public int AlbumRate { get; set; }
-        public List<Song>? Song { get; set; }
 
     }
 
 }
+

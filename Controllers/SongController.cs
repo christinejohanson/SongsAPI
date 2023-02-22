@@ -21,25 +21,36 @@ namespace SongsAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Song
+        /* ORIGINAL SCAFFOLDAT. GET: api/Song
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Song>>> GetSongs()
         {
-          if (_context.Songs == null)
-          {
-              return NotFound();
-          }
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             return await _context.Songs.ToListAsync();
+        } */
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Song>>> GetSongs()
+        {
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
+            return await _context.Songs.Include(e => e.Albums).ToListAsync();
         }
 
-        // GET: api/Song/5
+
+        /* ORIGINAL SCAFFOLDAT. GET: api/Song/5 
         [HttpGet("{id}")]
         public async Task<ActionResult<Song>> GetSong(int id)
         {
-          if (_context.Songs == null)
-          {
-              return NotFound();
-          }
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
             var song = await _context.Songs.FindAsync(id);
 
             if (song == null)
@@ -48,7 +59,27 @@ namespace SongsAPI.Controllers
             }
 
             return song;
+        } */
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Song>> GetSong(int id)
+        {
+            if (_context.Songs == null)
+            {
+                return NotFound();
+            }
+            var song = await _context.Songs.
+            Include(s => s.Albums)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(m => m.SongId == id);
+            if (song == null)
+            {
+                return NotFound();
+            }
+            return song;
         }
+
 
         // PUT: api/Song/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -86,10 +117,10 @@ namespace SongsAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Song>> PostSong(Song song)
         {
-          if (_context.Songs == null)
-          {
-              return Problem("Entity set 'SongContext.Songs'  is null.");
-          }
+            if (_context.Songs == null)
+            {
+                return Problem("Entity set 'SongContext.Songs'  is null.");
+            }
             _context.Songs.Add(song);
             await _context.SaveChangesAsync();
 
